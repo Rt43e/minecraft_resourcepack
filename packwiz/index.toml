@@ -2015,6 +2015,11 @@ hash = "283803df8543374b3fd29abca897aa9fc31cb5403712e8a10df4f26c541a501e"
 metafile = true
 
 [[files]]
+file = "resourcepacks/nf_korean_translation-0.14v.pw.toml"
+hash = "a46f8e6aaef3dbab2d0e2a57fc6cdb7f1d1b730f0f4cd1c46b2d79dff3d4d7c6"
+metafile = true
+
+[[files]]
 file = "resourcepacks/os-colorful-grasses.pw.toml"
 hash = "f5936f1626f20b36796b51e5da50e2dff58787a1b37fed04a88fda11691169ab"
 metafile = true
