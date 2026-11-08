@@ -26,11 +26,6 @@ hash = "877ebcd125da9d9d0b1cab27df9c5c24e2029ec3e3bb9115914cbfe3be3c8d4e"
 metafile = true
 
 [[files]]
-file = "mods/animated-loading-screen.pw.toml"
-hash = "09ede5f884830934fc0f75fa75bba2824114e61877cf35ce3462f7a0287d8142"
-metafile = true
-
-[[files]]
 file = "mods/appleskin.pw.toml"
 hash = "a4c913e5820e6dbe2757d431483c3b163720918455c6738381df5a1107416b4f"
 metafile = true
@@ -632,7 +627,7 @@ metafile = true
 
 [[files]]
 file = "mods/moreculling.pw.toml"
-hash = "744ada1dabbd88b5fb572dfad3c0e8d23480cfe23dc33ce80366e6bdfcf6838d"
+hash = "266ea35e0677cc832a90be062c65fa9e950e852cf6046d8a7ba263a5444ceb3c"
 metafile = true
 
 [[files]]
@@ -727,12 +722,12 @@ metafile = true
 
 [[files]]
 file = "mods/punchy-fpa.pw.toml"
-hash = "fe0ce06d799b16b94a0f28ceca06150b8f8e50314705a6dcbc7c5f1a821d04a9"
+hash = "ef2f6dd7564e11303a661a4e670944f944183cd362d984babd6500cd2cf1d6df"
 metafile = true
 
 [[files]]
 file = "mods/punchymoves.pw.toml"
-hash = "5f3c1f372005e1fb302547cd38452527648c6f93235907c1b3e864338fac5e24"
+hash = "4e08f90282febb9173474d3559196b4c3007c42020fac62de87c334154bc6b25"
 metafile = true
 
 [[files]]
