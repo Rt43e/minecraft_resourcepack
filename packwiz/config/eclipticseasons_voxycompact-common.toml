@@ -1,0 +1,13 @@
+[Compat]
+	#.
+	#Just for test.
+	#.
+	VoxyTest = true
+	#.
+	#Just for test.
+	#.
+	VoxyLODAutoReload = false
+	#.
+	#Just for test.
+	#.
+	VoxyReloadWhenSeasonChanged = false

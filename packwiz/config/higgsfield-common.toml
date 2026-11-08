@@ -1,0 +1,81 @@
+[higgsfield]
+	#Active Higgsfield endpoint set: dev or prod.
+	environment = "prod"
+	#Higgsfield image model job_set_type used for generation.
+	imageModel = "nano_banana"
+	#Image resolution passed to Higgsfield (1k is fastest).
+	resolution = "1k"
+	#Higgsfield video model job_set_type used for Film Roll generation.
+	videoModel = "kling3_0"
+	#Duration passed to Higgsfield video generation.
+	# Default: 3
+	# Range: 3 ~ 15
+	videoDurationSeconds = 3
+	#Target FPS for cached Film Roll frames extracted by Higgsfield. The API supports 1-5 FPS.
+	# Default: 5
+	# Range: 1 ~ 5
+	videoFrameFps = 5
+	#Aspect ratio for generated images. 1:1 maps cleanly onto a square map.
+	aspectRatio = "1:1"
+	#Maximum seconds to wait for a single Higgsfield/LLM job before giving up.
+	# Default: 300
+	# Range: 30 ~ 3600
+	jobTimeoutSeconds = 300
+
+	[higgsfield.dev]
+		#Dev OAuth device-authorization server origin.
+		deviceAuthOrigin = "https://dag-worker-minecraft-dev.anwar-695.workers.dev"
+		#Dev Higgsfield API base URL for generation calls.
+		apiBaseUrl = "https://dev-fnf.higgsfield.ai"
+
+		[higgsfield.dev.oauth]
+			#Dev OAuth client id for the device-authorization flow.
+			#Public per OAuth 2.0 spec for device-grant flows — no client_secret.
+			clientId = "minecraft"
+
+	[higgsfield.prod]
+		#Production OAuth device-authorization server origin.
+		deviceAuthOrigin = "https://minecraft-auth.higgsfield.ai"
+		#Production Higgsfield API base URL for generation calls.
+		apiBaseUrl = "https://fnf.higgsfield.ai"
+
+		[higgsfield.prod.oauth]
+			#Production OAuth client id for the device-authorization flow.
+			#Public per OAuth 2.0 spec for device-grant flows — no client_secret.
+			clientId = "minecraft"
+
+	[higgsfield.oauth]
+		#OAuth scopes requested during device authorization.
+		scope = "openid profile email offline_access"
+
+[updates]
+	#Check for Higgsfield updates when a world/server loads.
+	enabled = true
+	#Hosted JSON manifest with a version field for update checks.
+	manifestUrl = "https://hf-adobe-updates.higgsfield.ai/minecraft/manifest.json"
+
+[openrouter]
+	#LLM model id used to design house blueprints. Routed through Higgsfield's LLM job-set, which proxies to OpenRouter — model names follow OpenRouter's 'provider/model' naming.
+	model = "openai/gpt-5.4-mini"
+
+[house]
+	#Maximum width/height/depth (in blocks) of a generated house.
+	# Default: 24
+	# Range: 4 ~ 64
+	maxSize = 24
+	#Block ids the LLM is allowed to place when building a house.
+	blockWhitelist = ["minecraft:air", "minecraft:oak_planks", "minecraft:spruce_planks", "minecraft:birch_planks", "minecraft:oak_log", "minecraft:spruce_log", "minecraft:stripped_oak_log", "minecraft:cobblestone", "minecraft:stone", "minecraft:stone_bricks", "minecraft:mossy_stone_bricks", "minecraft:bricks", "minecraft:smooth_stone", "minecraft:glass", "minecraft:white_stained_glass", "minecraft:light_blue_stained_glass", "minecraft:glass_pane", "minecraft:oak_door", "minecraft:oak_fence", "minecraft:oak_stairs", "minecraft:stone_stairs", "minecraft:stone_brick_stairs", "minecraft:oak_slab", "minecraft:stone_slab", "minecraft:stone_brick_slab", "minecraft:white_wool", "minecraft:white_concrete", "minecraft:light_gray_concrete", "minecraft:bookshelf", "minecraft:crafting_table", "minecraft:furnace", "minecraft:torch", "minecraft:lantern", "minecraft:glowstone", "minecraft:sea_lantern", "minecraft:dark_oak_planks", "minecraft:deepslate_bricks", "minecraft:polished_andesite", "minecraft:quartz_block", "minecraft:terracotta", "minecraft:white_terracotta", "minecraft:polished_granite", "minecraft:polished_diorite", "minecraft:gold_block", "minecraft:quartz_pillar", "minecraft:copper_block", "minecraft:purpur_block", "minecraft:dark_oak_door", "minecraft:ladder", "minecraft:blue_carpet", "minecraft:cyan_carpet", "minecraft:light_blue_carpet", "minecraft:lime_carpet", "minecraft:red_concrete", "minecraft:yellow_concrete", "minecraft:blue_concrete", "minecraft:green_concrete", "minecraft:black_concrete"]
+
+[mindcraft]
+	#Export every generated structure as a Mindcraft construction task JSON.
+	#Files are written under <minecraft game directory>/higgsfield/mindcraft/houses.
+	#Mindcraft itself is a standalone Node/Mineflayer app: https://github.com/mindcraft-bots/mindcraft
+	exportConstructionTasks = true
+	#Number of Mindcraft agents to provision in exported construction tasks.
+	# Default: 1
+	# Range: 1 ~ 5
+	agentCount = 1
+	#Timeout in seconds for exported Mindcraft construction tasks.
+	# Default: 1000
+	# Range: 60 ~ 7200
+	taskTimeoutSeconds = 1000

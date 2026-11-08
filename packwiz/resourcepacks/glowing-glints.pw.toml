@@ -1,0 +1,14 @@
+"name" = "Enchantment Outlines"
+"filename" = "Enchantment Outlines.zip"
+"side" = "client"
+
+["download"]
+"url" = "https://cdn.modrinth.com/data/A32gwfe8/versions/RZESSQH8/Enchantment%20Outlines.zip"
+"hash-format" = "sha512"
+"hash" = "9f8983599e7408b137d9610721768c21a97e6848b46841dfc324631b51dd9761a9c5e3102937cf45a184c05d64a9a136f1d3f949d4a3565965acae1e4bafff50"
+
+["update"]
+
+["update"."modrinth"]
+"mod-id" = "A32gwfe8"
+"version" = "RZESSQH8"

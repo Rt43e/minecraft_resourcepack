@@ -1,0 +1,90 @@
+#Linear motor tuning
+[linear_motor]
+	#The heaviest cart a motor drives at its full rate, in Sable mass units.
+	#A bare cart is about 1 and a normal build 10, so ordinary carts launch
+	#and brake at exactly the configured rate. Past this the rate falls off
+	#with the square root of the excess: at four times the rated mass a cart
+	#launches at half rate, needing a run twice as long rather than four
+	#times. Shared by launching and braking, so a heavy cart is equally
+	#harder to move and to hold.
+	# Default: 20.0
+	# Range: 0.1 ~ 100000.0
+	ratedMass = 20.0
+	#How hard a linear motor launches, in blocks/s^2.
+	#Default ~3.5g: harder than a real launch coaster, because a Minecraft
+	#park is built at a tighter scale than a real one. Reaching 50 blocks/s
+	#takes a ~36-block launch run, so how hard a launch feels is still set
+	#by how long you build the run. Past ~64 a cart gains more than three
+	#blocks/s per tick and the physics starts stepping over collisions.
+	# Default: 35.0
+	# Range: 1.0 ~ 1000.0
+	launchRate = 35.0
+	#How hard a linear motor brakes, in blocks/s^2.
+	#Set above launchRate on purpose, so a brake run is always shorter
+	#than the launch run that made the speed: stopping from 50 blocks/s
+	#takes ~25 blocks against the ~36 it took to get there. Gravity does not
+	#weaken with a heavier cart, so brakes are the one thing that should not
+	#be left to just keep up.
+	# Default: 50.0
+	# Range: 1.0 ~ 1000.0
+	brakeRate = 50.0
+	#How fast a motor walks a cart onto a Stop's mark, in blocks/s.
+	#A stop brakes at the full rate down to this, then holds this speed until the
+	#cart is on its mark and parks it there. It is the pace a station roll-in is
+	#watched at rather than a performance figure: too high and the cart arrives
+	#faster than it can be parked accurately, too low and a cart that overshot
+	#takes an age to walk back.
+	# Default: 3.0
+	# Range: 0.5 ~ 20.0
+	creepSpeed = 3.0
+	#Highest speed a Linear Motor Controller step can be set to, in blocks/s.
+	#Bounds Launch and Trim alike. Top-hat launches want 50-80; past ~100 the
+	#physics can miss collisions at speed.
+	# Default: 100
+	# Range: 5 ~ 200
+	maxStepSpeed = 100
+
+#Coaster Observer tuning
+[coaster_observer]
+	#How long a Coaster Observer holds its redstone signal after a cart has passed.
+	#A cart at speed crosses the watched point in a fraction of a tick, so without a
+	#hold the pulse would be invisible to redstone. 20 ticks = 1 second. The reading
+	#itself stays on show longer than this, so a display is still worth walking to.
+	# Default: 20
+	# Range: 1 ~ 200
+	signalHoldTicks = 20
+	#Bound of the Speed at Full Signal value on Coaster Observers, in blocks/s.
+	#That value is the cart speed an observer reports as a full redstone signal.
+	# Default: 100
+	# Range: 5 ~ 200
+	fullSignalAt = 100
+
+#Forge Energy
+[energy]
+	#Whether driving a cart needs Forge Energy to work.
+	#Only work that speeds a cart up is paid for: a launch, and the last few
+	#blocks a stop walks a cart onto its mark. Braking is never refused for want
+	#of power, because braking is what fills the buffer.
+	#Off by default: Coasters Simulated's own magnets need no power, and a pack
+	#with no way to generate FE would be left unable to launch anything. Turning
+	#it on exposes an energy buffer on every anchorpoint that starts a run, which
+	#any FE cable can connect to.
+	requireEnergy = false
+	#Capacity in FE of the buffer on an anchorpoint that starts a run.
+	#Big enough to hold a launch or two, so a slow trickle charge between
+	#dispatches is a valid way to power a ride.
+	# Default: 100000
+	# Range: 1000 ~ 1000000000
+	energyBuffer = 100000
+	#FE drawn per unit of work the hardware does (force * distance).
+	#Cost therefore scales with what the launch actually achieves: a heavy
+	#train to a high speed costs more than a light one nudged along.
+	# Default: 10.0
+	# Range: 0.01 ~ 10000.0
+	energyPerJoule = 10.0
+	#Fraction of a brake run's work returned to its buffer as FE.
+	#Real coaster fins are eddy-current brakes and shed everything as heat;
+	#recovering any of it treats them as linear generators. 0 disables it.
+	# Default: 0.3
+	# Range: 0.0 ~ 1.0
+	regenEfficiency = 0.3

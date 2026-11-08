@@ -1,0 +1,407 @@
+#Offset the view by a fraction of a pixel each frame, so DLSS and
+#MetalFX Temporal have several different samples of the scene to
+#reconstruct from instead of the same one repeatedly.
+#
+#This is what makes a temporal upscaler temporal. Without it the
+#accumulator is handed an identical sample every frame and resolves
+#little more than a plain upscale would, which is most visible at the
+#aggressive presets.
+#
+#FORCED OFF, and this switch will not turn it on. Measured, it makes the
+#picture blurrier: the offset applied to the projection and the one
+#reported to the upscaler disagreed. -Dmetalupscaler.jitter=true for
+#whoever fixes it. 1.21.1's DLSS path always jitters, with the horizontal
+#sign corrected.
+jitter = false
+#Block the CPU until DLSS has finished, every frame, instead of only
+#synchronising on the GPU.
+#
+#Costs a millisecond or two of latency per frame, paid on every frame,
+#because it gives up the overlap between this frame's DLSS work and the
+#OpenGL commands after it. Off by default for that reason.
+#
+#It exists because the GPU-side handshake -- D3D12 signalling a shared
+#semaphore, OpenGL waiting on it -- is only known to work on the hardware
+#this was built against. If the semaphore did nothing, the frame would be
+#read before DLSS had written it and the screen would show the previous
+#reconstruction: a delay that worsens the faster the camera moves, at
+#every preset. Turn this on if that is what you see.
+dlss_cpu_wait = false
+#NVIDIA DLSS frame generation. Generates the frame belonging halfway
+#between each pair of rendered ones, from the depth and motion the
+#upscaler already produces, and presents it through the mod's own swap
+#chain.
+#
+#Switches on D3D12 presentation by itself: an extra frame only exists if
+#something presents more than once per rendered frame, and OpenGL
+#presents once.
+#
+#It adds latency by construction -- the rendered frame is held back so
+#the generated one can sit in front of it -- and things that move under
+#their own power rely on reconstructed motion vectors and can show
+#artifacts. Requires DLSS and an RTX card.
+#
+#Not available in exclusive fullscreen: presentation composites through
+#the desktop window manager, which exclusive fullscreen bypasses. Turn
+#off Exclusive Fullscreen in Video Settings; borderless works.
+dlss_frame_generation = false
+#How many frames reach the screen for each one rendered: 2 means one
+#generated frame per rendered frame.
+#
+#ABOVE 4x THE IMAGE DISTORTS. Each generated frame is interpolated from
+#the same pair of rendered ones, so the further apart that pair is in
+#time, the further each invented frame has to reach -- and the further
+#it reaches, the more it invents. 4x is where that stops being free.
+#
+#It also cannot exceed what the display can show. Frame generation fills
+#vertical blanks; at 60 rendered frames on a 120 Hz screen, 2x is the
+#whole budget and asking for 6x only makes Present block, which drags
+#the rendered rate down.
+#
+#NOTICE: Multi-frame generation is only available on RTX 50 series
+#cards. A 40 series card reports 2x only, and anything older reports
+#none at all. The count is clamped to whatever the driver says, so
+#asking for more than the card can do costs nothing and changes
+#nothing.
+# Default: 2
+# Range: 2 ~ 6
+dlss_frame_generation_factor = 2
+
+#Render scale: draw the world below native resolution, then upscale it
+#before the HUD is drawn. The GUI and text always stay at native resolution.
+[render_scale]
+	#Quality preset. Ratios follow the usual DLSS/FSR convention, expressed as
+	#a fraction of the native axis (so PERFORMANCE halves each axis and
+	#therefore renders a quarter of the pixels):
+	#  NATIVE_AA         100% - no downscale
+	#  ULTRA_QUALITY      77%
+	#  QUALITY            67%
+	#  BALANCED           59%
+	#  PERFORMANCE        50%
+	#  ULTRA_PERFORMANCE  33%
+	#  CUSTOM            - use 'custom_scale' below
+	#Allowed Values: NATIVE_AA, ULTRA_QUALITY, QUALITY, BALANCED, PERFORMANCE, ULTRA_PERFORMANCE, CUSTOM
+	preset = "NATIVE_AA"
+	#Fraction of native resolution used when preset = CUSTOM.
+	#Below about 0.6 the image starts to visibly break up on thin geometry
+	#such as fences and leaves.
+	# Default: 0.77
+	# Range: 0.3333333432674408 ~ 1.0
+	custom_scale = 0.77
+	#How the scaled image is reconstructed at full resolution.
+	#  BILINEAR - vanilla's blit. Cheapest, and mushy on Minecraft's textures.
+	#  LANCZOS  - Lanczos-2 with an anti-ringing clamp. Noticeably sharper,
+	#             especially at the lower presets. 16 taps in one pass.
+	#  FSR      - AMD FidelityFX Super Resolution 1 (EASU). Edge-adaptive, so
+	#             it reconstructs diagonals that LANCZOS stair-steps, for
+	#             roughly the same cost. No hardware requirement: it runs on
+	#             any GPU, including Apple Silicon and Intel.
+	#  METALFX  - Apple's spatial scaler, run asynchronously. Apple Silicon
+	#             only; measured cheaper than LANCZOS on an M4 Max. Falls back
+	#             to FSR on other hardware and on frames the GPU has not
+	#             finished yet.
+	#  DLSS     - NVIDIA DLSS Super Resolution. Windows and NVIDIA only, and
+	#             falls back to FSR with a logged reason where it cannot run --
+	#             which is what an AMD or Intel card on Windows ends up
+	#             running.
+	#
+	#             Some smearing remains on things that move under their own
+	#             power -- mobs, particles, waving foliage, the held item.
+	#             Motion is reconstructed from depth and the camera matrices,
+	#             which is exact for the world and an approximation for
+	#             anything moving through it.
+	#
+	#Defaults to METALFX on Apple Silicon, DLSS on 64-bit Windows, and FSR
+	#elsewhere. A machine that cannot run the vendor upscaler it was given
+	#lands on FSR too, so AMD and Intel get FSR either way.
+	#Allowed Values: BILINEAR, LANCZOS, METALFX, METALFX_TEMPORAL, DLSS, FSR
+	filter = "DLSS"
+	#Adjust the scale each frame to hold 'target_fps'. When the frame budget
+	#is met the scale walks back up toward the preset.
+	dynamic = false
+	#Framerate the dynamic mode aims to hold.
+	# Default: 60
+	# Range: 20 ~ 480
+	target_fps = 60
+	#Floor the dynamic mode will not scale below, however bad the framerate gets.
+	# Default: 0.55
+	# Range: 0.3333333432674408 ~ 1.0
+	min_scale = 0.55
+
+#Diagnostics. Both are off by default and neither changes how the game
+#looks until you turn it on.
+[debug]
+	#Present from D3D12 even with Distant Horizons installed.
+	#
+	#DH puts the mod on the scaled-native path, which hands a finished frame
+	#back for Minecraft to present. Presenting from D3D12 as well was a black
+	#screen at first, because the frame handed back was left unwritten and the
+	#OpenGL present that would have shown it was suppressed.
+	#
+	#Both now happen: the ordinary frame is drawn and presented as usual, and
+	#the composited surface goes over the top of it. That costs one copy and
+	#one extra present, and in exchange frame generation works with DH and the
+	#worst case is the ordinary frame rather than no picture.
+	#
+	#On by default. Turn it off if the picture misbehaves with DH installed,
+	#and frame generation will stop working there -- presentation is the only
+	#thing that shows generated frames.
+	d3d12_presentation_with_distant_horizons = true
+	#Show the depth buffer DLSS is handed, linearised into distance.
+	#
+	#Bands repeat every 8 blocks and brighten every 64. Crisp bands to the
+	#horizon mean depth resolves distance; bands that widen and then flatten
+	#into unbroken colour mean precision has run out exactly there. Red is the
+	#far plane -- sky should be red, and anything else that is red is being
+	#reprojected as though infinitely far away.
+	debug_depth = false
+	#Present the frame from D3D12 instead of copying it back to OpenGL.
+	#
+	#Stage 1 of the path frame generation needs: the upscaled world goes out
+	#through our own swap chain, composited over the window. Two things follow.
+	#The output copy disappears, which at 4K is the larger of the two DLSS pays.
+	#And a surface we own can be presented to more than once per rendered frame,
+	#which is the whole of what frame generation has been missing.
+	#
+	#THE HUD WILL BE INVISIBLE while this is on. The composited surface is opaque
+	#and sits above the OpenGL one, so the interface underneath is covered. That
+	#is expected at this stage, not a fault -- giving the HUD its own surface is
+	#the next piece of work. Turn it on, look at the world, turn it off.
+	d3d12_presentation = false
+	#Show the generated frame instead of the rendered one.
+	#
+	#A diagnostic for frame generation while there is no way to present the
+	#extra frames properly: with this on, every frame you see is synthesised
+	#from depth and motion vectors with no rendered pixels behind it. If that
+	#holds up, the inputs are good and only pacing is missing. If it does not,
+	#no amount of pacing would have helped.
+	show_generated_frame = false
+	#Add a second F3 line with the internals: which path actually ran, what it
+	#fell back to and why, frame pacing and GPU timings.
+	#
+	#Off by default. The normal F3 line says what is running and at what
+	#resolution, which is what the setting is for; this one is for diagnosing
+	#the mod itself, and it is what to turn on before filing a bug.
+	technical_overlay = false
+	#Replace the picture with the motion vectors the upscaler is being fed.
+	#
+	#A diagnostic, not a feature: the game becomes unplayable while it is on.
+	#Blue means the vectors are exactly zero, which would explain smearing --
+	#nothing is being reprojected. Olive means they are present; panning right
+	#should push it red and looking up should push it green. If it responds
+	#the wrong way round, a sign is inverted rather than the vectors missing.
+	debug_motion_vectors = false
+
+#Startup checks specific to macOS.
+[macos]
+	#On Apple Silicon, log a one-time notice when the game is running on the
+	#OpenGL backend, pointing at the 26.2 Vulkan option (which reaches Metal
+	#through MoltenVK). This only logs; it never changes your settings.
+	vulkan_advisor = true
+	#Say once in chat that Distant Horizons fixes the render scale for the
+	#session on macOS.
+	#
+	#DH sizes its own GL resources against the target it first saw and its
+	#macOS path does not survive being resized afterwards, so the scale is
+	#latched at the first frame and a new preset waits for a restart.
+	#
+	#Without the notice, choosing a different preset and watching nothing
+	#happen reads as this mod ignoring the setting. Windows is unaffected --
+	#there the scale re-latches on the next world join.
+	distant_horizons_notice = true
+	#Switch render scaling off while Distant Horizons is installed.
+	#
+	#DH's OpenGL renderer does not survive the level being drawn into an
+	#offscreen target: its LODs smear and fail to depth-test against near
+	#terrain. The cause sits between DH's raw-GL path, Iris forcing DH onto it,
+	#and Minecraft 26.2's reversed depth buffer -- none of which this mod can
+	#fix from the outside.
+	#
+	#Defaults to OFF: this mod exists to upscale, and silently doing nothing
+	#is a worse surprise than artifacts you can see. Set it true to have render
+	#scaling stand down automatically whenever DH is installed.
+	disable_with_distant_horizons = false
+	#Upscale the depth buffer every frame, even with no mod installed that
+	#reads it.
+	#
+	#Minecraft clears the main target's depth immediately after the AfterLevel
+	#event, so the depth we upscale is only ever read by a mod drawing at that
+	#stage -- Distant Horizons being the one this exists for. On paper the copy
+	#is therefore skippable when DH is absent.
+	#
+	#Whether skipping it actually helps is UNMEASURED. It defaults to ON because
+	#that is the behaviour every tested build used, not because the skip was
+	#shown to be worse.
+	#
+	#Set false to skip the copy when nothing reads it, and measure. Hold the
+	#preset and filter fixed, compare frame times rather than fps, and test with
+	#Distant Horizons NOT installed -- with DH present the depth is always
+	#upscaled regardless of this setting.
+	always_upscale_depth = true
+	#Leave the raw OpenGL framebuffer binding alone while an Iris shader pack
+	#is running.
+	#
+	#The binding override exists for Distant Horizons' standalone OpenGL
+	#renderer, which chooses where to draw by reading the current framebuffer
+	#binding. With Iris installed, DH renders through Iris's pipeline instead,
+	#so overriding the binding points DH at a buffer Iris is not compositing
+	#into -- LODs and shader clouds then draw over near terrain, and the real
+	#terrain appears transparent.
+	#
+	#Defaults OFF. Skipping the override was tried and measured worse: it leaves
+	#framebuffer 0 -- the default framebuffer -- bound when DH draws, where the
+	#working configuration has a real framebuffer with a depth attachment.
+	bypass_binder_with_shaders = true
+	#Render at native resolution when Iris AND Distant Horizons are both active.
+	#
+	#Each of them alone works correctly with render scaling. Together they do
+	#not: DH renders through Iris's pipeline, and something about compositing
+	#into an offscreen target leaves LODs and shader clouds drawing over near
+	#terrain, which then looks transparent.
+	#
+	#Four targeted fixes failed to correct it, so this can disable precisely the
+	#combination that is known to break and leave every other configuration
+	#alone.
+	#
+	#Defaults ON, and this is now a design decision rather than a workaround.
+	#
+	#Under a shaderpack Iris registers its own IDhApiFramebuffer override and
+	#supplies Distant Horizons with the framebuffer, depth texture and projection
+	#matrices itself -- see Iris's net.irisshaders.iris.compat.dh package. DH
+	#therefore never reads Minecraft's render target, and Iris builds that
+	#integration against whatever mainRenderTarget held when its pipeline was
+	#constructed. Swapping that field for the level pass invalidates it, and
+	#nothing on this side can correct it: the buffers DH reads belong to Iris.
+	#
+	#Iris alone and DH alone both scale correctly; only the pair is affected.
+	disable_with_shaders_and_distant_horizons = true
+	#Turn render scaling off while an Iris shader pack is running.
+	#
+	#Iris owns the whole rendering pipeline and reads
+	#gameRenderer.mainRenderTarget() at three points in a frame, sizing all of
+	#its buffers from one of them. This mod swaps that field mid-frame, and the
+	#two do not reliably agree: shader clouds and Distant Horizons LODs can
+	#composite over near terrain, which then looks transparent.
+	#
+	#It is intermittent rather than constant, and it is not platform specific --
+	#it is simply more consistent on some drivers than others.
+	#
+	#Set true to render at native resolution whenever a shader pack is loaded.
+	#That costs the upscaling under shaders and is correct rather than fast.
+	disable_with_shaders = false
+	#Keep the offscreen target in place for Iris's whole frame when a shader
+	#pack is running.
+	#
+	#Iris reads gameRenderer.mainRenderTarget() at three points in a frame and
+	#sizes its entire render target set from the second one. This mod swaps that
+	#field mid-frame -- normally so Distant Horizons' OpenGL renderer sees a
+	#full-size target -- which can leave Iris rebuilding its targets underneath
+	#itself, and shader clouds or DH LODs compositing against stale depth.
+	#
+	#With a shader pack running, DH draws through Iris rather than its own GL
+	#path, so the early swap is not needed.
+	#
+	#This did NOT fix the shader compositing problem when tested, and defaults
+	#off for that reason. The swap position was never the cause: Iris finalizes
+	#at the tail of renderLevel, inside the window this already covers. See
+	#scaled_native_with_shaders for the approach that addresses the real cause.
+	hold_target_for_shaders = false
+	#Always use the shader depth upscale, never the blit.
+	#
+	#Depth is normally upscaled with a single glBlitFramebuffer. Scaling a depth
+	#blit is a corner of the spec where drivers differ: Apple's accepts it,
+	#others reject it, and a rejection is silent -- the call raises a GL error
+	#rather than failing loudly, leaving a full-size target whose depth was never
+	#written. Distant Horizons then has nothing to depth-test against.
+	#
+	#The rejection is now detected and the shader path is used automatically, so
+	#this setting exists to exercise that path deliberately -- turn it on with
+	#Distant Horizons installed to confirm the fallback composites correctly on
+	#hardware where the blit would have worked anyway.
+	force_shader_depth_upscale = false
+	#Keep the raw OpenGL framebuffer binding in step with the offscreen target
+	#while the level is being drawn.
+	#
+	#Mods that render through their own OpenGL code rather than Minecraft's
+	#abstraction -- Distant Horizons is the one this was written for -- grab
+	#whatever framebuffer happens to be bound and assume it matches the main
+	#render target. Under render scaling it does not, and their geometry ends up
+	#drawn at the wrong size with a useless depth test.
+	#
+	#Also gates the depth upscale; see always_upscale_depth.
+	#
+	#Turn this off if it causes trouble; render scaling still works without it,
+	#but Distant Horizons LODs will not composite correctly.
+	external_renderer_compat = true
+	#Answer Distant Horizons with the offscreen target for the whole frame.
+	#
+	#DH resolves its framebuffer, depth texture and viewport through
+	#gameRenderer.mainRenderTarget(), which this mod swaps mid-frame -- so the
+	#answer DH gets depends on when it asks, and Iris shifts that timing when it
+	#rebuilds its pipeline. Answering consistently makes DH render at the world's
+	#resolution and depth-test against the buffer the world was drawn into.
+	#
+	#Requires the swap back to be deferred until after the AfterLevel event, or
+	#the upscale would run before DH draws and discard its output.
+	consistent_dh_target = false
+	#Render the level at reduced resolution natively when an Iris shader pack
+	#and Distant Horizons are both active, instead of swapping targets.
+	#
+	#Under a shader pack, DH never reads Minecraft's render target: Iris
+	#registers its own IDhApiFramebuffer and supplies DH with the framebuffer,
+	#depth texture and projection from its own pipeline. Iris sizes that
+	#pipeline from gameRenderer.mainRenderTarget() and builds it outside the
+	#level pass, so swapping that field for the level pass alone comes too late
+	#-- Iris has already committed to the window size, and DH inherits buffers
+	#that disagree with what the world was drawn into. That is what makes near
+	#terrain go transparent with LODs drawn over it.
+	#
+	#This option resizes Minecraft's main target instead of swapping it, so
+	#Iris and DH both read one consistent size all frame. The world is upscaled
+	#after renderLevel returns -- after Iris's last hook -- and the HUD and the
+	#present blit then run at native resolution, so text stays sharp.
+	#
+	#Applies only to the Iris + DH pair. Every other configuration keeps the
+	#existing path unchanged.
+	scaled_native_with_shaders = true
+	#How hard to sharpen the temporal scaler's output, 0.0 to 1.0.
+	#
+	#MTLFXTemporalScaler has no sharpening of its own, while the spatial scaler
+	#applies edge enhancement -- which is most of why temporal reads softer at
+	#the same render scale. Every temporal upscaler is paired with a sharpen
+	#filter for this reason.
+	#
+	#The filter is contrast-limited: the result is clamped to the neighbouring
+	#pixels' range, so it lifts detail without the bright halo a plain unsharp
+	#mask leaves along edges. 0.0 turns it off and costs nothing.
+	# Default: 0.4
+	# Range: 0.0 ~ 1.0
+	sharpness = 0.4
+	#How hard to sharpen DLSS's output, 0.0 to 1.0.
+	#
+	#DLSS stopped sharpening in 2.5.1 (NVIDIA deprecated the parameter), so this
+	#is the same contrast-limited filter the MetalFX path uses, run on DLSS's
+	#output. The same number means the same strength on both. 0.0 turns it off.
+	# Default: 0.6
+	# Range: 0.0 ~ 1.0
+	dlss_sharpness = 0.6
+
+	#Experimental features. Both are off by default and both can look wrong
+	#in ways the stable filters do not -- see the in-game warning.
+	[macos.experimental]
+		#MetalFX frame generation. Apple Silicon only.
+		#
+		#Builds the frame belonging halfway between each pair of rendered ones
+		#and presents it as well, so the presented rate roughly doubles.
+		#
+		#Requires the MetalFX Temporal filter: the interpolator is constructed
+		#around that scaler and borrows its motion understanding, so there is
+		#nothing to chain without it.
+		#
+		#Generating frames costs GPU time that would otherwise go into rendering,
+		#so the number of REAL frames behind the presented figure drops. On a GPU
+		#already saturated that trade can be a net loss in responsiveness.
+		#
+		#Reconstructed motion is exact for terrain and approximate for anything
+		#moving under its own power, which is where artifacts will show.
+		frame_generation = false

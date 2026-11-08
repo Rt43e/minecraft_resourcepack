@@ -1,0 +1,12 @@
+#Xaero's World Map
+[xaeroworldmap]
+	Enable = true
+	SkipVanillaColorCheck = true
+
+#Snow! Real Magic!
+[snowrealmagic]
+	Enable = true
+
+#Subtle Effects
+[subtle_effects]
+	Enable = true

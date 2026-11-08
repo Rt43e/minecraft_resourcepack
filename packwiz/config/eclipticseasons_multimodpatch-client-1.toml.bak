@@ -1,0 +1,7 @@
+#Presence Footsteps
+[presencefootsteps]
+	Enable = true
+
+#Journey Map
+[journeymap]
+	Enable = true
