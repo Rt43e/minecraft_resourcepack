@@ -1,0 +1,12 @@
+name = "Crabber's Delight"
+filename = "crabbersdelight-1.21.1-1.2.5.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/gBGdVBJy/versions/CwxH5yCK/crabbersdelight-1.21.1-1.2.5.jar"
+hash-format = "sha512"
+hash = "59a3e12f299d57f7df6130f73a466e18d3e4990e6e29601f49797aaba9323f0cb82bb847bab012af13eac176a2cd9e2ab331c51d758481895691245ab11612c9"
+
+[update.modrinth]
+mod-id = "gBGdVBJy"
+version = "CwxH5yCK"

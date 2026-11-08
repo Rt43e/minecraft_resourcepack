@@ -1,0 +1,12 @@
+name = "Breath."
+filename = "breath.-1.3.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/zgWJ57Yd/versions/kcWC1Syx/breath.-1.3.jar"
+hash-format = "sha512"
+hash = "fa420f70eaf5fe971a468d569741ee1e0a87d13b16f202ff9220b1931c6cdc223d2916330a8f580ba4cced02363abf7d002485e464564aabbf87ac802667d166"
+
+[update.modrinth]
+mod-id = "zgWJ57Yd"
+version = "kcWC1Syx"

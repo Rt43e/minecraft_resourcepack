@@ -1,0 +1,12 @@
+name = "GGTU"
+filename = "NeoForgeGGTU-1.2.1+mc1.21.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/yUGpMO4t/versions/ut9xOdLa/NeoForgeGGTU-1.2.1%2Bmc1.21.1.jar"
+hash-format = "sha512"
+hash = "97158cad143fb3d8c400cfdc8f73d517598d43ced72c71ad81849540a4234409c88db9eb7b9e395ea45d8cea11294491798b02687a97caf390ee7ca66b487281"
+
+[update.modrinth]
+mod-id = "yUGpMO4t"
+version = "ut9xOdLa"
