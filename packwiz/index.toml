@@ -5,6 +5,38 @@ file = "config/DistantHorizons.toml"
 hash = "25178858d0fef12f432241d4154e908b52f2c7e41c16880378bbd18d961c7415"
 
 [[files]]
+file = "config/ModernUI/bootstrap.properties"
+hash = "73d43f4aff86920b25f720a1f521c88073a85eccbb82ebed5b3bd44f9d113683"
+
+[[files]]
+file = "config/ModernUI/client-1.toml.bak"
+hash = "a16bfd4b8401155d32f92233c607d84bcf6a26bd9767cee5d1e91c174dc48ecf"
+
+[[files]]
+file = "config/ModernUI/client-2.toml.bak"
+hash = "028da11a5031b45e46c895a6793bdf16899fef121cb6cd9cc1c4edeec0af67bb"
+
+[[files]]
+file = "config/ModernUI/client.toml"
+hash = "264a3566f7f63d315353b2b582f5c2636b447664dc3c28e0a57f410fc02b9150"
+
+[[files]]
+file = "config/ModernUI/common.toml"
+hash = "25f3610a946a2c22a1a369339f78a655dbd94319666ac1c59529421d9760e4a0"
+
+[[files]]
+file = "config/ModernUI/text-1.toml.bak"
+hash = "beb30f4e5bf54239da9e4ab9cafecf976861e29f264cf69e0f8de0b9b0d059bb"
+
+[[files]]
+file = "config/ModernUI/text-2.toml.bak"
+hash = "30d1cff35f4d05580ee243ed8e65518cae5b98e523cc84935217a01dc8d5f35a"
+
+[[files]]
+file = "config/ModernUI/text.toml"
+hash = "9ae5718540e6477ab2b3e3177601dc87629828cd859f1f9eb2b47f4f36df562f"
+
+[[files]]
 file = "config/MouseTweaks.cfg"
 hash = "4069ce1a439d8c37453c1b1e9f2037e0942674c7e48723a39b37eab245792ad4"
 
