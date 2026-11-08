@@ -1,0 +1,12 @@
+name = "OptiCore"
+filename = "Opticores-1.1.1+1.21.x.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/5zhn04Hy/versions/sdoLjZoP/Opticores-1.1.1%2B1.21.x.jar"
+hash-format = "sha512"
+hash = "8bdaa7df0e9e6e12092677d759e553f26478967895d297ccf60c3159b241df7ff48fc0485e81bfbfd09fb52f4e02ddc7cfd34ea206325453c8473e648eb5b899"
+
+[update.modrinth]
+mod-id = "5zhn04Hy"
+version = "sdoLjZoP"

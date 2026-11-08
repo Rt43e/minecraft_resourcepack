@@ -1,0 +1,12 @@
+name = "Server Country Flags"
+filename = "servercountryflags-1.10.4-1.21.1-NEOFORGE.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/L6HW4EbG/versions/G88EzQkB/servercountryflags-1.10.4-1.21.1-NEOFORGE.jar"
+hash-format = "sha512"
+hash = "bdc4819fc89841653f1230399cc8a417e95a915e06235afe35746345a62a54f6e51ed9e85751c645ef5d2c587f1ff5f002cfcf8ce919172e4f133f4087c0f771"
+
+[update.modrinth]
+mod-id = "L6HW4EbG"
+version = "G88EzQkB"

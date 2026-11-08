@@ -1,0 +1,12 @@
+name = "Screen Weather & Biome Effects"
+filename = "Screen WeatherBiomeEffects1.21.1.jar"
+side = "client"
+
+[download]
+hash-format = "sha1"
+hash = "ea43a8c8f0edcecf73680f2fe9dc71a54e5df3b5"
+mode = "metadata:curseforge"
+
+[update.curseforge]
+file-id = 9239157
+project-id = 1724604

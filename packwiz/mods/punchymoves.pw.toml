@@ -1,0 +1,12 @@
+name = "Punchy! Moves"
+filename = "punchy-moves-1.0.3-neoforge-1.21.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/mzgtK8pY/versions/NanubWnt/punchy-moves-1.0.3-neoforge-1.21.1.jar"
+hash-format = "sha512"
+hash = "ab9e4794b7b9834ba1528c501ebc6b52e78d057cf72885b553dffb0185df81bc942a56b462e46aa30b919c0a37ee7ef5a9d463fd6d5f754237b554cbdd879570"
+
+[update.modrinth]
+mod-id = "mzgtK8pY"
+version = "NanubWnt"

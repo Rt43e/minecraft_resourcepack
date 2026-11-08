@@ -1,0 +1,13 @@
+name = "JSWorld BC NF - 서버용"
+author = "43E1"
+version = "1.0.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "a45196e2728e7579d28f08c403ec2a160cfd72995a1c66faf09d6e099458adf8"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.233"

@@ -1,0 +1,12 @@
+name = "Korean Chat Patch"
+filename = "koreanpatch-neoforge-1.9.5+mc1.21.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/qyulnpBL/versions/vayzJ8PE/koreanpatch-neoforge-1.9.5%2Bmc1.21.jar"
+hash-format = "sha512"
+hash = "b0c9fd9ab218b6711665faf09093f8d38c6df6162baa236542268a217e3d53b403ddde22f4353a3670f470807f02a93c219a6ffb949c16686f2186139a8c6176"
+
+[update.modrinth]
+mod-id = "qyulnpBL"
+version = "vayzJ8PE"
