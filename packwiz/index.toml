@@ -2013,6 +2013,10 @@ hash = "dc811cdba73fb62f983b04752cc8ac48820880881218cbfd25cccb8d16046fcb"
 metafile = true
 
 [[files]]
+file = "options.txt"
+hash = "05f3ff1c04c46a31b683766ba0ee72617cc677edb6652fb61cd87b6d38af0247"
+
+[[files]]
 file = "resourcepacks/even-better-enchants.pw.toml"
 hash = "a1cc9af0e7c06d53cf17e6ef27826e482833eba4c559b7a155afa699fddba1fc"
 metafile = true
