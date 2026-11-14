@@ -1997,7 +1997,7 @@ metafile = true
 
 [[files]]
 file = "options.txt"
-hash = "05f3ff1c04c46a31b683766ba0ee72617cc677edb6652fb61cd87b6d38af0247"
+hash = "a02506db7b394e4016f768da414663e7ffa6ed5b7d61e6505821f32ee35a2d0c"
 
 [[files]]
 file = "resourcepacks/even-better-enchants.pw.toml"
@@ -2032,6 +2032,11 @@ metafile = true
 [[files]]
 file = "resourcepacks/nf_korean_translation-0.14v.pw.toml"
 hash = "a46f8e6aaef3dbab2d0e2a57fc6cdb7f1d1b730f0f4cd1c46b2d79dff3d4d7c6"
+metafile = true
+
+[[files]]
+file = "resourcepacks/nf_korean_translation-0.15v.pw.toml"
+hash = "b6f7db32a5b2c9581f2b76fa409ac9eebb6995a0d0426b281bedd3e99d4fdb93"
 metafile = true
 
 [[files]]
