@@ -1,12 +1,14 @@
-name = "AllTheLeaks (Memory Leak Fix)"
-filename = "alltheleaks-1.1.14-1.21.1-neoforge.jar"
-side = "client"
+"name" = "AllTheLeaks (Memory Leak Fix)"
+"filename" = "alltheleaks-1.1.16-1.21.1-neoforge.jar"
+"side" = "client"
 
-[download]
-hash-format = "sha1"
-hash = "9466eee51e9af6d3dd65d1dc164cd8ea98df1fcc"
-mode = "metadata:curseforge"
+["download"]
+"hash-format" = "sha1"
+"hash" = "216772b6278e0d99208517a9207721318903f1e5"
+"mode" = "metadata:curseforge"
 
-[update.curseforge]
-file-id = 9360134
-project-id = 1091339
+["update"]
+
+["update"."curseforge"]
+"file-id" = 9498307
+"project-id" = 1091339

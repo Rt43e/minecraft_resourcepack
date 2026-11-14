@@ -1,12 +1,14 @@
-name = "Barbeque's Delight [Forge/NeoForge]"
-filename = "barbequesdelight-1.2.2.jar"
-side = "client"
+"name" = "Barbeque's Delight [Forge/NeoForge]"
+"filename" = "barbequesdelight-1.3.0.jar"
+"side" = "client"
 
-[download]
-url = "https://cdn.modrinth.com/data/rtu7uERF/versions/eS5ZBlEc/barbequesdelight-1.2.2.jar"
-hash-format = "sha512"
-hash = "5d0dfcf4892526043b0098ffff57beed2a21f06b7705ee95c470ec41f7f74bdde9111838675af2b51d4531d54cda54378fdb3fe654aef87ec705478555e13171"
+["download"]
+"url" = "https://cdn.modrinth.com/data/rtu7uERF/versions/rvUhMw6d/barbequesdelight-1.3.0.jar"
+"hash-format" = "sha512"
+"hash" = "27d8338f862934a2eb7efb62cffcbba6675c00e4dcd1b66a482ad3a07d68aafe9f9e320525da50314cdbdc59d7b0b71d3f72b830b1f32d9f2c14293a62d54815"
 
-[update.modrinth]
-mod-id = "rtu7uERF"
-version = "eS5ZBlEc"
+["update"]
+
+["update"."modrinth"]
+"mod-id" = "rtu7uERF"
+"version" = "rvUhMw6d"
