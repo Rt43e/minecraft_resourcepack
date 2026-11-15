@@ -1076,11 +1076,6 @@ hash = "a2a5cfd0ec533b1d9391364eb5c16494d4178aca8d7e263fe82fd044c4acaf87"
 metafile = true
 
 [[files]]
-file = "mods/aeronautics-winds-and-weather.pw.toml"
-hash = "8bcc0212a12cfc2e2ea486595e4eb3b6ea4886c0a8f6d76a1a51cd47e2983b8f"
-metafile = true
-
-[[files]]
 file = "mods/aerovive-fix.pw.toml"
 hash = "ff7e420d0d4cf069aa46560a34026eb6768ca435ea79be69f09432438b1a5206"
 metafile = true
@@ -1306,11 +1301,6 @@ hash = "38f167f41cb159f18e152153541ab5a7138ec14f394443efb37c362165b98316"
 metafile = true
 
 [[files]]
-file = "mods/create-deep-seas.pw.toml"
-hash = "0b3d29e2ac5d3a18d3ac1ecfde2bcd0a0301531284767e1858e46dc31772ffa9"
-metafile = true
-
-[[files]]
 file = "mods/create-dragons-plus.pw.toml"
 hash = "1bf4d32728883479ac62a3e1e2702ed0863539f6071d0f79eb2203f2a0aa37dd"
 metafile = true
@@ -1462,7 +1452,7 @@ metafile = true
 
 [[files]]
 file = "mods/entityculling.pw.toml"
-hash = "4e78626a4bd601b691d9657200c9bc4775654d258fcd82124a26372b0f06e2f2"
+hash = "85438f21e6c8a869a22919b4a5ee0e4a0107f3aeee877983ec1b749e465bc5f1"
 metafile = true
 
 [[files]]
@@ -1583,6 +1573,11 @@ metafile = true
 [[files]]
 file = "mods/inventory-profiles-next.pw.toml"
 hash = "b631186f87c45a08f213d356820a3756f388f1a5e2238a5a76cef7ffe38ee13b"
+metafile = true
+
+[[files]]
+file = "mods/iris-veil-compat.pw.toml"
+hash = "9764a803f3cd9eff4c9627726bc04f965e9215a776e198421971ee7bf1191df1"
 metafile = true
 
 [[files]]
@@ -1968,6 +1963,11 @@ metafile = true
 [[files]]
 file = "mods/veggies-delight.pw.toml"
 hash = "8da7bede147d9866074fd7276f0f7531e5459d1d9a9177d01c37cb6d38b59150"
+metafile = true
+
+[[files]]
+file = "mods/veil.pw.toml"
+hash = "326e05da35e24c23c2c4e15741014f55cd73f8e31e5e6f725efc6db39924d3ce"
 metafile = true
 
 [[files]]
