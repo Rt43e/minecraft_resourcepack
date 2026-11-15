@@ -1462,7 +1462,7 @@ metafile = true
 
 [[files]]
 file = "mods/entityculling.pw.toml"
-hash = "b68ddce0f8bebf6c82b66af02eed0fa66e2c4dbced005f574d9172be557b1ef9"
+hash = "4e78626a4bd601b691d9657200c9bc4775654d258fcd82124a26372b0f06e2f2"
 metafile = true
 
 [[files]]
@@ -1633,6 +1633,11 @@ metafile = true
 [[files]]
 file = "mods/leave-my-bars-alone.pw.toml"
 hash = "92d50a5d4e8279a316994c9084862c7f107d0cfe1d889fd7b55aa8dd78e1b2d5"
+metafile = true
+
+[[files]]
+file = "mods/lets-do-furniture-another-furniture-handcrafted-create-sable.pw.toml"
+hash = "b66d3c1e8e6defc2ffaf5bcb1ce5e2731c2df2cf6e7e78ba5c714a0ed8b5c075"
 metafile = true
 
 [[files]]
