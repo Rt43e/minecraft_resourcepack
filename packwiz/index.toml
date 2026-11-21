@@ -1831,11 +1831,6 @@ hash = "41259b1a76ec738eeeee3c6271cefbfbb4d4a5aef44b4fdabbc77b777e0731e9"
 metafile = true
 
 [[files]]
-file = "mods/screen-weather-biome-effects.pw.toml"
-hash = "597d6c68849cb00e63a7b1edcd3725123aac7d7f141715c6b09c14f17660c0fe"
-metafile = true
-
-[[files]]
 file = "mods/seamless-loading-screen.pw.toml"
 hash = "13647af523916bac56b163aa07a17ee9353f69ed322ab3b6caa2c1f61cb43cec"
 metafile = true
