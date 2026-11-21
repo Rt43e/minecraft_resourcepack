@@ -1666,6 +1666,11 @@ hash = "32c75462351d9721c61e48320227ba36e6b38a566a816d890bce51968abb6777"
 metafile = true
 
 [[files]]
+file = "mods/mezzconfig.pw.toml"
+hash = "a2b36d25e6249bc1999eccba69b2aa8af3f6a270d046815ae54977f83021eee6"
+metafile = true
+
+[[files]]
 file = "mods/mod-menu-neoforge-edition.pw.toml"
 hash = "b16c14d086de27ed2108e74203665b6196be94cbdd2961f92da6ad2ef0a30f14"
 metafile = true
