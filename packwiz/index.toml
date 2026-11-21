@@ -1381,8 +1381,8 @@ hash = "7fe20305296f29acb2aa9ee78b7031aa65e42eb0d6a082bc9c83ba21739b9da0"
 metafile = true
 
 [[files]]
-file = "mods/diegesis.pw.toml"
-hash = "3b0f8f0c163838a231e7aa24f6e23dbdd29e5b441a3c278746f3d7725cc103c9"
+file = "mods/diegesis-api.pw.toml"
+hash = "b69c8da611efe31f0718d599c23a66b1963980a0bd66d4db573733d76f4066f0"
 metafile = true
 
 [[files]]
@@ -1587,7 +1587,7 @@ metafile = true
 
 [[files]]
 file = "mods/jei.pw.toml"
-hash = "631f396214e6519a500e014a19a0a4112980891ae6d10465b56f507101bd53eb"
+hash = "382d74a3754a2fcca8fd07d54db04f8e03b807bd0a4856bfdf125075cfd3143a"
 metafile = true
 
 [[files]]
